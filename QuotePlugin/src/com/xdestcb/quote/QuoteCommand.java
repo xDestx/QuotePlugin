@@ -27,6 +27,7 @@ public class QuoteCommand implements Command {
 			if(!arg1.startsWith("<#")) {
 				//No channel specified
 				channelTagged = e.getTextChannel().getId();
+				arg1 = null;
 			}
 			long userId;
 			long channelId;
@@ -45,7 +46,7 @@ public class QuoteCommand implements Command {
 			} else if (ch == null) { 
 				e.getChannel().sendMessage("Nice try punk, but that channel doesn't exist").queue();
 			} else {
-				String quotedMessage = cmd.replace(arg0, "").replace(arg1, "").trim();
+				String quotedMessage = cmd.replace(arg0, "").replace((arg1 == null ? "":arg1), "").trim();
 				//Find if it exists
 				QuoteCreator qc = new QuoteCreator(quotedMessage, usr,ch, e.getTextChannel(), bot.getJDA(), pl.getLookbackTime(), pl.getTimeZone());
 				Thread searchThread = new Thread(qc);

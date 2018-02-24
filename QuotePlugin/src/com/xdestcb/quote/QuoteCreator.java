@@ -42,7 +42,9 @@ public class QuoteCreator implements Runnable {
 		long currentTime = startTime;
 		
 		Message quotedMessage = null;
-		pastMessages.remove(0);
+		if(ch.getId().equals(out.getId())) {
+			pastMessages.remove(0);
+		}
 		for(Message msg : pastMessages) {
 			if(currentTime > endTime) {
 				quotedMessage = null;
@@ -56,7 +58,7 @@ public class QuoteCreator implements Runnable {
 		}
 		
 		if(quotedMessage == null) {
-			ch.sendMessage("Couldn't find the message to quote within the allowed time, my apologies").complete();
+			out.sendMessage("Couldn't find the message to quote within the allowed time, my apologies").complete();
 		} else {
 			EmbedBuilder eb = new EmbedBuilder();
 			eb.setColor(Color.green);
